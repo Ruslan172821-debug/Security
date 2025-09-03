@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ОХРАНА — pvz WB (Абинск, Комсомольский проспект 93)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    :root{
+      --bg1:#f4f6fb; --bg2:#eef2f9;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --text:#0f172a;
+      --green:#059669;
+      --red:#b91c1c;
+      --tile:#f6f7fb;
+      --tile-dark:#121827;
+      --tile-red:#ef4444;
+      --tile-border:#e5e8f1;
+      --radius:22px; --radius-tile:18px;
+      --shadow: 0 8px 26px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: -apple-system, system-ui, Segoe UI, Roboto, Inter, Helvetica, Arial;
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      display:flex; align-items:center; justify-content:center;
+      min-height:100vh; color:var(--text);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .phone{
+      width:min(430px, 100%);
+      background:var(--panel);
+      border-radius: 36px;
+      overflow:hidden;
+      border:1px solid #dfe4ef;
+      box-shadow: 0 18px 60px rgba(0,0,0,.2);
+    }
+    header{
+      padding:14px 16px 8px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      background:#fbfcff;
+      border-bottom:1px solid var(--tile-border);
+    }
+    .left{ display:flex; align-items:center; gap:10px }
+    .back{ display:flex; align-items:center; gap:6px; color:#111827; font-weight:600; font-size:14px }
+    .back .icon{ width:26px; height:26px; border:1px solid #e5e7ef; border-radius:50%; display:grid; place-items:center; background:#fff }
+    .balance-wrap{ display:flex; align-items:center; gap:6px }
+    .balance{ background:#16a34a; color:#fff; font-weight:800; font-size:13px; padding:6px 12px; border-radius:999px; box-shadow:inset 0 1px 0 rgba(255,255,255,.35) }
+    .plus{ width:28px; height:28px; border-radius:6px; background:#16a34a; color:#fff; display:grid; place-items:center; font-weight:900 }
+    .gear{ width:28px; height:28px; border:1px solid #e5e7ef; border-radius:50%; display:grid; place-items:center; background:#fff }
+    .card{
+      padding:14px 16px 12px;
+      background:#fff;
+      border-bottom:1px solid var(--tile-border);
+    }
+    .name{ font-weight:900; letter-spacing:.2px; font-size:20px }
+    .meta{ display:flex; align-items:center; gap:10px; margin-top:6px; color:#111827 }
+    .meta .num{ color:#64748b; font-weight:800; }
+    .meta .state{ display:flex; align-items:center; gap:6px; font-weight:800; }
+    .meta .state.green{ color:var(--green) } .meta .state.red{ color:var(--red) }
+    .addr{ color:#111827; font-size:15px; margin-top:2px }
+    .addr strong{ font-size:18px; letter-spacing:.2px }
+    .grid{
+      padding:14px 12px 18px;
+      background:#f4f6fb;
+      display:grid; grid-template-columns:1fr 1fr; gap:10px;
+    }
+    .tile{
+      border-radius: var(--radius-tile);
+      padding:14px;
+      min-height:94px;
+      border:1px solid var(--tile-border);
+      box-shadow: var(--shadow);
+      display:flex; flex-direction:column; justify-content:flex-end;
+      user-select:none; text-align:left;
+    }
+    .tile .label{ font-weight:900; font-size:15px; line-height:1.2 }
+    .tile .top{ display:flex; align-items:center; justify-content:flex-start; gap:10px; margin-bottom:auto }
+    .tile .iconbox{ width:28px; height:28px; border-radius:8px; display:grid; place-items:center }
+    .tile.dark{ background: linear-gradient(180deg, #1b2234, #0f172a); color:#e5e7eb; border-color:#0f1829 }
+    .tile.light{ background:#fff }
+    .tile.red{ background:#ff3b30; border-color:#ff8a80; color:#fff }
+    .tile.red .label{ color:#fff }
+    .tile.light .label{ color:#111827 }
+    .row-span-2{ grid-row: span 2; }
+    button.tile{ cursor:pointer; transition: transform .02s ease, filter .2s ease }
+    button.tile:active{ transform: translateY(1px); filter:brightness(.98) }
+    .footer{ padding:10px 16px 16px; background:#fbfcff; border-top:1px solid var(--tile-border); color:#64748b; font-size:12px }
+    .time{ font-weight:700 }
+    /* simple icons */
+    .lock svg, .unlock svg, .doc svg, .gear2 svg, .pie svg, .play svg { width:18px; height:18px }
+  </style>
+
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <meta name="apple-mobile-web-app-title" content="ОХРАНА">
+
+</head>
+<body>
+  <div class="phone" id="app">
+    <header>
+      <div class="left">
+        <div class="back"><div class="icon">‹</div><span>Назад</span></div>
+      </div>
+      <div class="balance-wrap">
+        <div class="balance" id="bal">1157 ₽</div>
+        <div class="plus">+</div>
+        <div class="gear">⚙️</div>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="name">ОХРАНА</div>
+      <div class="meta">
+        <div class="num">№ 9988</div>
+        <div id="topState" class="state red">🔓 Снят с охраны</div>
+      </div>
+      <div class="addr"><strong>pvz WB</strong>, (Абинск, Комсомольский проспект 93)</div>
+    </div>
+
+    <div class="grid">
+      <!-- Поставить под охрану -->
+      <button id="arm" class="tile dark row-span-2" type="button" aria-pressed="false">
+        <div class="top">
+          <div class="iconbox lock"><svg viewBox="0 0 24 24" fill="none" stroke="#e5e7eb" stroke-width="1.8"><path d="M6 10a6 6 0 0 1 12 0v2h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h1v-2z"/><circle cx="12" cy="15" r="1.6" fill="#e5e7eb"/></svg></div>
+        </div>
+        <div class="label">Поставить под охрану</div>
+      </button>
+
+      <!-- Снять с охраны -->
+      <button id="disarm" class="tile light" type="button" aria-pressed="true">
+        <div class="top">
+          <div class="iconbox unlock" style="background:#f2f5ff"><svg viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.8"><path d="M6 10a6 6 0 0 1 12 0v2h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h5"/></svg></div>
+        </div>
+        <div class="label">Снять с охраны</div>
+      </button>
+
+      <!-- Тревожная кнопка -->
+      <button id="panic" class="tile red" type="button">
+        <div class="top">
+          <div class="iconbox" style="background:#ffb3b3">!</div>
+        </div>
+        <div class="label">Тревожная кнопка</div>
+      </button>
+
+      <!-- События -->
+      <div class="tile light">
+        <div class="top"><div class="iconbox doc" style="background:#f2f5ff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.6"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h6"/></svg>
+        </div></div>
+        <div class="label">События</div>
+      </div>
+
+      <!-- Карточка объекта -->
+      <div class="tile light">
+        <div class="top"><div class="iconbox doc" style="background:#f2f5ff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.6"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
+        </div></div>
+        <div class="label">Карточка объекта</div>
+      </div>
+
+      <!-- Мои устройства -->
+      <div class="tile light">
+        <div class="top"><div class="iconbox gear2" style="background:#f2f5ff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.1a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.1a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06A2 2 0 1 1 7.05 3.4l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.1a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06A2 2 0 1 1 20.6 7.05l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.39 1.26 1 1.51.32.13.66.2 1 .2"/></svg>
+        </div></div>
+        <div class="label">Мои устройства</div>
+      </div>
+
+      <!-- Разделы -->
+      <div class="tile light">
+        <div class="top"><div class="iconbox pie" style="background:#f2f5ff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.6"><path d="M11 3a9 9 0 1 0 9 9h-9z"/><path d="M21 12A9 9 0 0 0 12 3v9z"/></svg>
+        </div></div>
+        <div class="label">Разделы</div>
+      </div>
+
+      <!-- Видео -->
+      <div class="tile light">
+        <div class="top"><div class="iconbox play" style="background:#f2f5ff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>
+        </div></div>
+        <div class="label">Видео</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div id="time" class="time">Последнее действие: —</div>
+    </div>
+  </div>
+
+  <script>
+    const topState = document.getElementById('topState');
+    const timeEl = document.getElementById('time');
+    const btnArm = document.getElementById('arm');
+    const btnDisarm = document.getElementById('disarm');
+    const btnPanic = document.getElementById('panic');
+
+    let armed = false; // старт как на скрине — снят
+    const fmt = new Intl.DateTimeFormat('ru-RU', {year:'numeric', month:'long', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit'});
+
+    function stamp(note){
+      timeEl.textContent = 'Последнее действие: ' + fmt.format(new Date()) + (note ? ' — ' + note : '');
+    }
+
+    function render(){
+      if(armed){
+        topState.classList.remove('red'); topState.classList.add('green');
+        topState.textContent = '🔒 Объект под охраной';
+        btnArm.setAttribute('aria-pressed','true');
+        btnDisarm.setAttribute('aria-pressed','false');
+        // визуально — «Поставить» остаётся тёмной как активная плитка
+      }else{
+        topState.classList.remove('green'); topState.classList.add('red');
+        topState.textContent = '🔓 Снят с охраны';
+        btnArm.setAttribute('aria-pressed','false');
+        btnDisarm.setAttribute('aria-pressed','true');
+      }
+    }
+
+    function setArmed(next){
+      armed = next;
+      render();
+      stamp(next ? 'поставлено на охрану' : 'снято с охраны');
+    }
+
+    // Надёжные обработчики для iOS/Android
+    btnArm.addEventListener('click', () => { if(!armed) setArmed(true) });
+    btnDisarm.addEventListener('click', () => { if(armed) setArmed(false) });
+    btnArm.addEventListener('touchstart', (e)=>{ e.preventDefault(); if(!armed) setArmed(true) }, {passive:false});
+    btnDisarm.addEventListener('touchstart', (e)=>{ e.preventDefault(); if(armed) setArmed(false) }, {passive:false});
+
+    btnPanic.addEventListener('click', ()=> stamp('тревожная кнопка'));
+    btnPanic.addEventListener('touchstart', (e)=>{ e.preventDefault(); stamp('тревожная кнопка') }, {passive:false});
+
+    render(); stamp('инициализация');
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+      });
+    }
+  </script>
+
+</body>
+</html>
